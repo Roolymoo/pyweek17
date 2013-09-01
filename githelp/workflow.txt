@@ -1,7 +1,8 @@
 1. update local repo
     1.1. git pull origin master
         - this updates your local repo
-2. (optional) add new files for committing
+2. (optional) add (new) files for committing (unlike SVN, in addition to having to add new files, 
+   you have to do the add command for updating old files)
     2.1. git add <file1> <file2> ...
     2.2. git add *
         - adds all files in current dir
