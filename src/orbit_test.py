@@ -47,18 +47,22 @@ screen = pygame.display.set_mode(size)
 while 1:
     screen.fill(black)
 
+    #Draw the planet first
+    pygame.draw.circle(screen, colour, (centre_x, centre_y), 50)
+
     #Example orbit paths
+    pygame.draw.circle(screen, colour, (centre_x, centre_y), 100, 2)
     pygame.draw.circle(screen, colour, (centre_x, centre_y), 150, 2)
     pygame.draw.circle(screen, colour, (centre_x, centre_y), 200, 2)
     pygame.draw.circle(screen, colour, (centre_x, centre_y), 250, 2)
     pygame.draw.circle(screen, colour, (centre_x, centre_y), 300, 2)
-    pygame.draw.circle(screen, colour, (centre_x, centre_y), 350, 2)
+
 
     #Idea moon sizes: Because the paths have a radius difference of 50,
     # then at most a moon can be radius 25;
     #Ideally, we want it to be 10 to 20
     pygame.draw.rect(screen, colour, (800, 0, 200, 800))
-    pygame.draw.circle(screen, colour, (centre_x, centre_y), 25)
+
     pygame.draw.circle(screen, colour, (int(moon_radius * math.cos(time.clock()) + centre_x), int(moon_radius * math.sin(time.clock()) + centre_y)), 15)
     pygame.display.flip()
 
