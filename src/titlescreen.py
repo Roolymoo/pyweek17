@@ -45,7 +45,6 @@ def render_title_screen(app):
     WIDTH = 150
     HEIGHT = 40
     TEXT = "levels"
-    COLOUR = WHITE
     FOO = None
     exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
             COLOUR=FONT_COLOUR, FOO=FOO)
@@ -57,7 +56,6 @@ def render_title_screen(app):
     WIDTH = 90
     HEIGHT = 40
     TEXT = "exit"
-    COLOUR = WHITE
     FOO = exit_app
     exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
             COLOUR=FONT_COLOUR, FOO=FOO)
