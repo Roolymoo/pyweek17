@@ -17,3 +17,5 @@ other stuff:
 - to remove a file
     - git rm filename
     - then commit and push like usual
+- to cancel a commit
+    - git reset HEAD^
