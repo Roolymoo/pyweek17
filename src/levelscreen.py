@@ -18,11 +18,10 @@
 import pygame
 from os.path import join
 from button import Button, exit_app
-from levelscreen import render_level_screen
 
 
-def render_title_screen(app):
-    '''(App) -> NoneType'''
+def render_level_screen(app, MOUSE_POS):
+    '''(App, tuple) -> NoneType'''
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
@@ -32,35 +31,15 @@ def render_title_screen(app):
 
     app.window.fill(BLACK)
 
-    # title
-    TEXT = "title"
-    ANTIALIAS = True
-    BACKGROUND = None
-    TITLE = pygame.font.Font(FONT_FAMILY, FONT_SIZE).render(
-                TEXT, ANTIALIAS, FONT_COLOUR, BACKGROUND)
+    # title screen button
     COORD = (100, 100)
-    app.window.blit(TITLE, COORD)
-
-    # levels button
-    COORD = (100, 200)
-    WIDTH = 140
+    WIDTH = 300
     HEIGHT = 40
-    TEXT = "levels"
-    FOO = render_level_screen
-    exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
-            COLOUR=FONT_COLOUR, FOO=FOO)
-    app.ui_elements.append(exit_button)
-    exit_button.render(app.window)
-
-    # exit button
-    COORD = (100, 300)
-    WIDTH = 90
-    HEIGHT = 40
-    TEXT = "exit"
-    FOO = exit_app
-    exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
-            COLOUR=FONT_COLOUR, FOO=FOO)
-    app.ui_elements.append(exit_button)
-    exit_button.render(app.window)
+    TEXT = "title screen"
+    FOO = None
+    title_screen_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
+            FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
+    app.ui_elements.append(title_screen_button)
+    title_screen_button.render(app.window)
 
     pygame.display.update()
