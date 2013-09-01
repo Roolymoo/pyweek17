@@ -33,9 +33,12 @@ class App:
         Loads initization data for pygame. If the data fails to load, returns
         -1. Otherwise returns 0.'''
         DATA = get_init_data()
+        
+        #get_init_data failed to get anything meaningful
         if DATA == {}:
             return -1
 
+        #Sets up the window
         self.width = int(*DATA["width"])
         self.height = int(*DATA["height"])
         self.running = True
@@ -53,9 +56,12 @@ class App:
         '''(App) -> int
         ...'''
         init_status = self.init()
+        
+        #Failed to initialize properly
         if init_status != 0:
             return init_status
 
+        #Starts the game window
         while self.running:
             for event in pygame.event.get():
                 if event.type == QUIT:

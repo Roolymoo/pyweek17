@@ -22,14 +22,22 @@ def get_init_data():
     INIT_FILE = "init.txt"
 
     INIT_DATA = ["width", "height"]
-    data = {property: None for property in INIT_DATA}
+    
+    #Initializes data for storage of width and height to NONE
+    data = {property: None for property in INIT_DATA} #data[property] = None
+    
+    #Opens the file
     with open(INIT_FILE, "r") as FILE:
+        
+        #Saves the property and values
         for line in FILE:
-            property, *vals = line.split()
+            property, *vals = line.split() #property:string, *vals:list
 
+            #Stores the property and values in data
             if property in INIT_DATA:
                 data[property] = vals
 
+    #We opened a stupid file with none of the properties we wanted
     if None in data.values():
         return {}
 
