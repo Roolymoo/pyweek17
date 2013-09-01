@@ -53,7 +53,6 @@ while 1:
     pygame.draw.circle(screen, colour, (centre_x, centre_y), 250, 2)
     pygame.draw.circle(screen, colour, (centre_x, centre_y), 300, 2)
     pygame.draw.circle(screen, colour, (centre_x, centre_y), 350, 2)
-    pygame.draw.circle(screen, colour, (centre_x, centre_y), 400, 2)
 
     #Idea moon sizes: Because the paths have a radius difference of 50,
     # then at most a moon can be radius 25;
