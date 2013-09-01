@@ -17,6 +17,7 @@
 
 import pygame
 from pygame.locals import QUIT
+from init import get_init_data
 
 
 class App:
@@ -28,13 +29,19 @@ class App:
         self.window = None
 
     def init(self):
-        '''(App) -> int'''
-        self.width = 600 # TODO change from hardcode #########################
-        self.height = 600 # TODO change from hardcode ########################
+        '''(App) -> int
+        Loads initization data for pygame. If the data fails to load, returns
+        -1. Otherwise returns 0.'''
+        DATA = get_init_data()
+        if DATA == {}:
+            return -1
+
+        self.width = int(*DATA["width"])
+        self.height = int(*DATA["height"])
         self.running = True
         self.window = pygame.display.set_mode((self.width, self.height))
 
-        # pygame.display.update()
+        pygame.display.update()
 
         return 0
 
@@ -43,7 +50,8 @@ class App:
         self.running = False
 
     def main(self):
-        '''(App) -> int'''
+        '''(App) -> int
+        ...'''
         init_status = self.init()
         if init_status != 0:
             return init_status
