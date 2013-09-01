@@ -11,3 +11,9 @@
 4. (optional) push the changes to the desired branch (like committing in SVN)
     4.1. git push origin master
         - this suffices for us bc we'll only have one branch going
+
+other stuff:
+
+- to remove a file
+    - git rm filename
+    - then commit and push like usual
