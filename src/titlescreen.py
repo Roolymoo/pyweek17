@@ -17,7 +17,7 @@
 
 import pygame
 from os.path import join
-from button import Button
+from button import Button, exit_app
 
 
 def render_title_screen(app):
@@ -63,7 +63,3 @@ def render_title_screen(app):
     exit_button.render(app.window)
 
     pygame.display.update()
-
-def exit_app(app, MOUSE_POS):
-    '''(App, tuple) -> NoneType'''
-    app.running = False

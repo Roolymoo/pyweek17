@@ -56,4 +56,10 @@ class Button:
     def execute(self, app, MOUSE_POS):
         '''(Button, App, tuple) -> NoneType
         ...'''
-        self.foo(app, MOUSE_POS)
+        if not self.foo == None:
+            self.foo(app, MOUSE_POS)
+
+
+def exit_app(app, MOUSE_POS):
+    '''(App, tuple) -> NoneType'''
+    app.running = False
