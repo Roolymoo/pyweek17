@@ -1,0 +1,12 @@
+1. update local repo
+    1.1. git pull origin master
+        - this updates your local repo
+2. (optional) add new files for committing
+    2.1. git add <file1> <file2> ...
+    2.2. git add *
+        - adds all files in current dir
+3. (optional) commit the changes (not same as SVN--have to push to make changes permanent)
+    3.1. git commit -m "commit msg"
+4. (optional) push the changes to the desired branch (like committing in SVN)
+    4.1. git push origin master
+        - this suffices for us bc we'll only have one branch going
