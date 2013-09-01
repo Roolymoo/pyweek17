@@ -15,9 +15,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
+from app import App
+
+
 def main():
     '''(NoneType) -> int'''
-    return 0
+    return App().main()
 
 if __name__ == "__main__":
     print(main()) # DEBUG ####################################################
