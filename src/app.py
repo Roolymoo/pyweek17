@@ -17,7 +17,7 @@
 
 import pygame
 from pygame.locals import QUIT
-from init import get_init_data
+from init import get_init_data, render_title_screen
 
 
 class App:
@@ -38,6 +38,8 @@ class App:
         '''(App) -> int
         Loads initization data for pygame. If the data fails to load, returns
         -1. Otherwise returns 0.'''
+        pygame.init()
+
         DATA = get_init_data()
 
         #get_init_data failed to get anything meaningful

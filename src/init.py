@@ -15,6 +15,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
+import pygame
+from button import Button
+
+
 def get_init_data():
     '''(NoneType) -> dict
     Loads pygame initialization data from INIT_FILE, given below, into a dict.
@@ -45,6 +49,4 @@ def get_init_data():
 
 def render_title_screen(surface):
     '''(Pygame.Surface) -> NoneType'''
-    WHITE = (255, 255, 255)
-
     ...
