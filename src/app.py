@@ -18,7 +18,7 @@
 import pygame
 from pygame.locals import QUIT, MOUSEBUTTONUP
 from init import get_init_data
-from titlescreen import render_title_screen
+from render import render_title_screen
 
 
 class App:

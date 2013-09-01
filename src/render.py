@@ -18,10 +18,8 @@
 import pygame
 from os.path import join
 from button import Button, exit_app
-from levelscreen import render_level_screen
 
-
-def render_title_screen(app):
+def render_title_screen(app, MOUSE_POS=None):
     '''(App) -> NoneType'''
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
@@ -62,5 +60,29 @@ def render_title_screen(app):
             COLOUR=FONT_COLOUR, FOO=FOO)
     app.ui_elements.append(exit_button)
     exit_button.render(app.window)
+
+    pygame.display.update()
+
+def render_level_screen(app, MOUSE_POS=None):
+    '''(App, tuple) -> NoneType'''
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+
+    FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
+    FONT_SIZE = 30
+    FONT_COLOUR = WHITE
+
+    app.window.fill(BLACK)
+
+    # title screen button
+    COORD = (100, 100)
+    WIDTH = 300
+    HEIGHT = 40
+    TEXT = "title screen"
+    FOO = render_title_screen
+    title_screen_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
+            FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
+    app.ui_elements.append(title_screen_button)
+    title_screen_button.render(app.window)
 
     pygame.display.update()
