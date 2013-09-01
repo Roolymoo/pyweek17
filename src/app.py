@@ -26,9 +26,10 @@ class App:
         '''(App) -> NoneType'''
         self.width = None
         self.height = None
-        self.running = None
         self.fps = None
         self.fps_clock = None
+        self.running = None
+        self.ui_elements = None
         self.window = None
 
     def __del__(self):
