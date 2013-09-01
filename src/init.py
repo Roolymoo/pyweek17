@@ -42,3 +42,9 @@ def get_init_data():
         return {}
 
     return data
+
+def render_title_screen(surface):
+    '''(Pygame.Surface) -> NoneType'''
+    WHITE = (255, 255, 255)
+
+    ...
