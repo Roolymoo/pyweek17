@@ -30,6 +30,10 @@ class App:
         self.fps_clock = None
         self.window = None
 
+    def __del__(self):
+        '''(App) -> NoneType'''
+        pygame.quit()
+
     def init(self):
         '''(App) -> int
         Loads initization data for pygame. If the data fails to load, returns
@@ -47,8 +51,6 @@ class App:
         self.fps_clock = pygame.time.Clock()
         self.running = True
         self.window = pygame.display.set_mode((self.width, self.height))
-
-        pygame.display.update()
 
         return 0
 
