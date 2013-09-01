@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
-import pygame
 from button import Button
 
 
@@ -46,7 +45,3 @@ def get_init_data():
         return {}
 
     return data
-
-def render_title_screen(surface):
-    '''(Pygame.Surface) -> NoneType'''
-    ...

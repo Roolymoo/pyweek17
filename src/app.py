@@ -16,8 +16,9 @@
 ##############################################################################
 
 import pygame
-from pygame.locals import QUIT
-from init import get_init_data, render_title_screen
+from pygame.locals import QUIT, MOUSEBUTTONUP
+from init import get_init_data
+from titlescreen import render_title_screen
 
 
 class App:
@@ -52,7 +53,10 @@ class App:
         self.fps = int(*DATA["fps"])
         self.fps_clock = pygame.time.Clock()
         self.running = True
+        self.ui_elements = []
         self.window = pygame.display.set_mode((self.width, self.height))
+
+        render_title_screen(self)
 
         return 0
 
@@ -73,6 +77,11 @@ class App:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     self.exit()
+                elif event.type == MOUSEBUTTONUP:
+                    for ui_elem in self.ui_elements:
+                        mouse_pos = pygame.mouse.get_pos()
+                        if ui_elem.is_clicked(mouse_pos):
+                            ui_elem.execute(self, mouse_pos)
 
             self.fps_clock.tick(self.fps)
 
