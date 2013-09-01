@@ -32,7 +32,7 @@ def render_title_screen(app):
     app.window.fill(BLACK)
 
     # title
-    TEXT = "TITLE"
+    TEXT = "title"
     ANTIALIAS = True
     BACKGROUND = None
     TITLE = pygame.font.Font(FONT_FAMILY, FONT_SIZE).render(
@@ -40,11 +40,23 @@ def render_title_screen(app):
     COORD = (100, 100)
     app.window.blit(TITLE, COORD)
 
-    # exit button
+    # levels button
     COORD = (100, 200)
+    WIDTH = 150
+    HEIGHT = 40
+    TEXT = "levels"
+    COLOUR = WHITE
+    FOO = None
+    exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
+            COLOUR=FONT_COLOUR, FOO=FOO)
+    app.ui_elements.append(exit_button)
+    exit_button.render(app.window)
+
+    # exit button
+    COORD = (100, 300)
     WIDTH = 90
     HEIGHT = 40
-    TEXT = "Exit"
+    TEXT = "exit"
     COLOUR = WHITE
     FOO = exit_app
     exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
