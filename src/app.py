@@ -26,6 +26,8 @@ class App:
         self.width = None
         self.height = None
         self.running = None
+        self.fps = None
+        self.fps_clock = None
         self.window = None
 
     def init(self):
@@ -33,7 +35,7 @@ class App:
         Loads initization data for pygame. If the data fails to load, returns
         -1. Otherwise returns 0.'''
         DATA = get_init_data()
-        
+
         #get_init_data failed to get anything meaningful
         if DATA == {}:
             return -1
@@ -41,6 +43,8 @@ class App:
         #Sets up the window
         self.width = int(*DATA["width"])
         self.height = int(*DATA["height"])
+        self.fps = int(*DATA["fps"])
+        self.fps_clock = pygame.time.Clock()
         self.running = True
         self.window = pygame.display.set_mode((self.width, self.height))
 
@@ -55,16 +59,17 @@ class App:
     def main(self):
         '''(App) -> int
         ...'''
+        #Starts the game window
         init_status = self.init()
-        
         #Failed to initialize properly
         if init_status != 0:
             return init_status
 
-        #Starts the game window
         while self.running:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     self.exit()
+
+            self.fps_clock.tick(self.fps)
 
         return 0

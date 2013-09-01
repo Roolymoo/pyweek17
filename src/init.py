@@ -21,7 +21,7 @@ def get_init_data():
     If successful, returns this dict. Otherwise, returns empty dict.'''
     INIT_FILE = "init.txt"
 
-    INIT_DATA = ["width", "height"]
+    INIT_DATA = ["width", "height", "fps"]
     
     #Initializes data for storage of width and height to NONE
     data = {property: None for property in INIT_DATA} #data[property] = None
