@@ -40,15 +40,15 @@ class Button:
         ...'''
         return self.rect.collidepoint(MOUSE_POS)
 
-    def render(self, SURFACE, UPDATE=False):
+    def render(self, surface, UPDATE=False):
         '''(Button, pygame.Surface, bool) -> NoneType
         ...'''
-        pygame.draw.rect(SURFACE, self.colour, self.rect, self.line_width)
+        pygame.draw.rect(surface, self.colour, self.rect, self.line_width)
 
-        TEXT_XPADDING = 0.15 * self.rect.width
-        TEXT_YPADDING = 0.15 * self.rect.height
+        TEXT_XPADDING = 10
+        TEXT_YPADDING = 5
         X, Y = self.rect.x + TEXT_XPADDING, self.rect.y + TEXT_YPADDING
-        SURFACE.blit(self.text, (X, Y))
+        surface.blit(self.text, (X, Y))
 
         if UPDATE:
             pygame.display.update(self.rect)
@@ -58,7 +58,6 @@ class Button:
         ...'''
         if not self.foo == None:
             self.foo(app, MOUSE_POS)
-
 
 def exit_app(app, MOUSE_POS):
     '''(App, tuple) -> NoneType'''
