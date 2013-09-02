@@ -19,10 +19,12 @@ import pygame
 from os.path import join
 from button import Button, exit_app
 
-def render_title_screen(app, MOUSE_POS=None):
+def render_title_menu_screen(app, MOUSE_POS=None):
     '''(App) -> NoneType'''
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
+
+    app.ui_elements = [] # remove old ui elements in old screen, if any
 
     FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
     FONT_SIZE = 30
@@ -44,7 +46,7 @@ def render_title_screen(app, MOUSE_POS=None):
     WIDTH = 600
     HEIGHT = 40
     TEXT = "levels"
-    FOO = render_level_screen
+    FOO = render_level_menu_screen
     exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
             COLOUR=FONT_COLOUR, FOO=FOO)
     app.ui_elements.append(exit_button)
@@ -63,10 +65,12 @@ def render_title_screen(app, MOUSE_POS=None):
 
     pygame.display.update()
 
-def render_level_screen(app, MOUSE_POS=None):
+def render_level_menu_screen(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
+
+    app.ui_elements = [] # remove old ui elements in old screen, if any
 
     FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
     FONT_SIZE = 30
@@ -79,7 +83,7 @@ def render_level_screen(app, MOUSE_POS=None):
     WIDTH = 600
     HEIGHT = 40
     TEXT = "title screen"
-    FOO = render_title_screen
+    FOO = render_title_menu_screen
     title_screen_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
             FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
     app.ui_elements.append(title_screen_button)
