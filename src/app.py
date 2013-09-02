@@ -75,10 +75,18 @@ class App:
             return init_status
 
         while self.running:
+
+            #Checks for events
             for event in pygame.event.get():
+
+                #Exit event
                 if event.type == QUIT:
                     self.exit()
+
+                #Mouse click event
                 elif event.type == MOUSEBUTTONUP:
+
+                    #Elements for ui include button
                     for ui_elem in self.ui_elements:
                         mouse_pos = pygame.mouse.get_pos()
                         if ui_elem.is_clicked(mouse_pos):
