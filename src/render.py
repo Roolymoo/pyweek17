@@ -18,28 +18,28 @@
 import pygame
 from os.path import join
 from button import Button, exit_app
+from label import Label
 
 def render_title_menu_screen(app, MOUSE_POS=None):
-    '''(App) -> NoneType'''
+    '''(App, tuple) -> NoneType'''
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
-    app.ui_elements = [] # remove old ui elements in old screen, if any
+    app.ui_elements.clear() # remove old ui elements in old screen, if any
 
     FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
     FONT_SIZE = 30
     FONT_COLOUR = WHITE
 
+    app.background = BLACK
     app.window.fill(BLACK)
 
     # title
     TEXT = "title"
-    ANTIALIAS = True
-    BACKGROUND = None
-    TITLE = pygame.font.Font(FONT_FAMILY, FONT_SIZE).render(
-                TEXT, ANTIALIAS, FONT_COLOUR, BACKGROUND)
     COORD = (100, 100)
-    app.window.blit(TITLE, COORD)
+    title_label = Label(TEXT, COORD, FONT_FAMILY, FONT_SIZE, FONT_COLOUR)
+    app.ui_elements.append(title_label)
+    title_label.render(app.window)
 
     # levels button
     COORD = (100, 200)
@@ -47,10 +47,10 @@ def render_title_menu_screen(app, MOUSE_POS=None):
     HEIGHT = 40
     TEXT = "levels"
     FOO = render_level_menu_screen
-    exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
+    levels_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
             COLOUR=FONT_COLOUR, FOO=FOO)
-    app.ui_elements.append(exit_button)
-    exit_button.render(app.window)
+    app.ui_elements.append(levels_button)
+    levels_button.render(app.window)
 
     # exit button
     COORD = (100, 300)
@@ -63,19 +63,22 @@ def render_title_menu_screen(app, MOUSE_POS=None):
     app.ui_elements.append(exit_button)
     exit_button.render(app.window)
 
-    pygame.display.update()
+    app.to_update.append(None)
+
+    app.status = 0
 
 def render_level_menu_screen(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
-    app.ui_elements = [] # remove old ui elements in old screen, if any
+    app.ui_elements.clear() # remove old ui elements in old screen, if any
 
     FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
     FONT_SIZE = 30
     FONT_COLOUR = WHITE
 
+    app.background = BLACK
     app.window.fill(BLACK)
 
     # title screen button
@@ -111,4 +114,6 @@ def render_level_menu_screen(app, MOUSE_POS=None):
     app.ui_elements.append(level2_button)
     level2_button.render(app.window)
 
-    pygame.display.update()
+    app.to_update.append(None)
+
+    app.status = 1

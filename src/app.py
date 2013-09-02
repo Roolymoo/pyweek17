@@ -23,7 +23,24 @@ from render import render_title_menu_screen
 
 class App:
     def __init__(self):
-        '''(App) -> NoneType'''
+        '''(App) -> NoneType
+
+        width       - window width
+        height      - window height
+        fps         - software display FPS
+        fps_clock   - controls software display FPS
+        running     - running status of game
+        ui_elements - currently used UI elements
+        window      - the software display
+        title       - game name
+        background  - current background. Either a colour (tuple) ...
+        status      - what kind of screen is being rendered currently.
+                        - -1 no kind
+                        - 0 title menu screen
+                        - 1 level menu screen
+                        - 2 game screen
+        to_update   - pygame.Rect's of window that need updating, or None to
+                      indicate that the whole display must be updated'''
         self.width = None
         self.height = None
         self.fps = None
@@ -32,15 +49,19 @@ class App:
         self.ui_elements = None
         self.window = None
         self.title = None
+        self.background = None
+        self.status = None
+        self.to_update = None
 
     def __del__(self):
-        '''(App) -> NoneType'''
+        '''(App) -> NoneType
+        Exit Pygame.'''
         pygame.quit()
 
     def init(self):
         '''(App) -> int
-        Loads initization data for pygame. If the data fails to load, returns
-        -1. Otherwise returns 0.'''
+        Initializes Pygame and loads initization data for pygame. If the data
+        fails to load, returns -1. Otherwise returns 0.'''
         pygame.init()
 
         DATA = get_init_data()
@@ -58,6 +79,8 @@ class App:
         self.ui_elements = []
         self.window = pygame.display.set_mode((self.width, self.height))
         self.title = "title"
+        self.status = -1 # no kind, game is loading
+        self.to_update = []
 
         pygame.display.set_caption(self.title)
 
@@ -71,7 +94,8 @@ class App:
 
     def main(self):
         '''(App) -> int
-        ...'''
+        Main routine of the game. Returns the return of self.init() if it does
+        not return 0, otherwise returns 0.'''
         #Starts the game window
         init_status = self.init()
         #Failed to initialize properly
@@ -95,6 +119,13 @@ class App:
                         mouse_pos = pygame.mouse.get_pos()
                         if ui_elem.is_clicked(mouse_pos):
                             ui_elem.execute(self, mouse_pos)
+
+            for rect in self.to_update:
+                if rect == None:
+                    pygame.display.update()
+                    break
+                pygame.display.update(rect)
+            self.to_update.clear()
 
             self.fps_clock.tick(self.fps)
 

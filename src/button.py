@@ -22,7 +22,12 @@ class Button:
     def __init__(self, COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY=None,
             FONT_SIZE=12, LINE_WIDTH=1, COLOUR=(0, 0, 0), FOO=None):
         '''(Button, tuple, int, int, str, str, int, int, tuple, function) -> NoneType
-        ...'''
+
+        rect - border of text
+        line_width - width of border lines
+        colour - colour of border and text
+        text - 
+        foo - function to execute on activation'''
         X, Y = COORD
 
         ANTIALIAS = True
@@ -35,14 +40,18 @@ class Button:
                 TEXT, ANTIALIAS, COLOUR, BACKGROUND)
         self.foo = FOO
 
+    def unrender(self, app):
+        '''(Button, App) -> NoneType
+        Blits over self.rect with app.background on app.window.'''
+        if type(app.background) == tuple:
+            app.window.fill(app.background, self.rect)
+
     def is_clicked(self, MOUSE_POS):
-        '''(Button, tuple) -> bool
-        ...'''
+        '''(Button, tuple) -> bool'''
         return self.rect.collidepoint(MOUSE_POS)
 
-    def render(self, surface, UPDATE=False):
-        '''(Button, pygame.Surface, bool) -> NoneType
-        ...'''
+    def render(self, surface):
+        '''(Button, pygame.Surface) -> NoneType'''
         pygame.draw.rect(surface, self.colour, self.rect, self.line_width)
 
         TEXT_XPADDING = 10
@@ -50,12 +59,8 @@ class Button:
         X, Y = self.rect.x + TEXT_XPADDING, self.rect.y + TEXT_YPADDING
         surface.blit(self.text, (X, Y))
 
-        if UPDATE:
-            pygame.display.update(self.rect)
-
     def execute(self, app, MOUSE_POS):
-        '''(Button, App, tuple) -> NoneType
-        ...'''
+        '''(Button, App, tuple) -> NoneType'''
         if not self.foo == None:
             self.foo(app, MOUSE_POS)
 
