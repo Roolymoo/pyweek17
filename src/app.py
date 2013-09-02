@@ -31,6 +31,7 @@ class App:
         self.running = None
         self.ui_elements = None
         self.window = None
+        self.title = None
 
     def __del__(self):
         '''(App) -> NoneType'''
@@ -56,6 +57,9 @@ class App:
         self.running = True
         self.ui_elements = []
         self.window = pygame.display.set_mode((self.width, self.height))
+        self.title = "title"
+
+        pygame.display.set_caption(self.title)
 
         render_title_screen(self)
 
