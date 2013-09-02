@@ -59,6 +59,8 @@ class App:
         self.window = pygame.display.set_mode((self.width, self.height))
         self.title = "title"
 
+        pygame.display.set_caption(self.title)
+
         render_title_menu_screen(self)
 
         return 0
