@@ -23,6 +23,7 @@
 import pygame
 import math
 import time
+from moon import Moon
 
 pygame.init()
 
@@ -41,28 +42,65 @@ centre_radius = 25
 #This moon radius should depend on which orbit path
 screen = pygame.display.set_mode(size)
 
-#Note: the planet is radius 25, so add on another 25 away for the first path
-while 1:
-    screen.fill(black)
+def hardcode_test():
+    #Note: the planet is radius 25, so add on another 25 away for the first path
+    while 1:
+        screen.fill(black)
 
-    #Draw the planet first
-    pygame.draw.circle(screen, colour, (centre_x, centre_y), 50)
+        #Draw the planet first
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 50)
 
-    #Example orbit paths
-    pygame.draw.circle(screen, colour, (centre_x, centre_y), 100, 2)
-    pygame.draw.circle(screen, colour, (centre_x, centre_y), 150, 2)
-    pygame.draw.circle(screen, colour, (centre_x, centre_y), 200, 2)
-    pygame.draw.circle(screen, colour, (centre_x, centre_y), 250, 2)
-    pygame.draw.circle(screen, colour, (centre_x, centre_y), 300, 2)
+        #Example orbit paths
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 100, 2)
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 150, 2)
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 200, 2)
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 250, 2)
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 300, 2)
 
-    #Idea moon sizes: Because the paths have a radius difference of 50,
-    # then at most a moon can be radius 25;
-    #Ideally, we want it to be 10 to 20
-    pygame.draw.rect(screen, colour, (800, 0, 200, 800))
+        #Idea moon sizes: Because the paths have a radius difference of 50,
+        # then at most a moon can be radius 25;
+        #Ideally, we want it to be 10 to 20
+        pygame.draw.rect(screen, colour, (800, 0, 200, 800))
 
-    pygame.draw.circle(screen, colour, (int(150 * math.cos(time.clock()) + centre_x), int(150 * math.sin(time.clock()) + centre_y)), 15)
-    pygame.draw.circle(screen, colour, (int(300 * math.cos(time.clock()) + centre_x), int(300 * math.sin(time.clock()) + centre_y)), 20)
-    pygame.draw.circle(screen, colour, (int(250 * math.cos(time.clock()) + centre_x), int(250 * math.sin(time.clock()) + centre_y)), 10)
-    pygame.display.flip()
+        pygame.draw.circle(screen, colour, (int(150 * math.cos(time.clock() / 2) + centre_x), int(150 * math.sin(time.clock() / 2) + centre_y)), 15)
+        pygame.draw.circle(screen, colour, (int(300 * math.cos(time.clock() / 5) + centre_x), int(300 * math.sin(time.clock() / 5) + centre_y)), 20)
+        pygame.draw.circle(screen, colour, (int(250 * math.cos(time.clock() / 4) + centre_x), int(250 * math.sin(time.clock() / 4) + centre_y)), 10)
+        pygame.display.flip()
+
+def moonclass_test():
+
+    moon_a = Moon(1, 10)
+    moon_b = Moon(2, 15)
+    moon_c = Moon(3, 20)
+    moon_d = Moon(4, 15)
+    moon_e = Moon(5, 10)
+
+    while 1:
+        screen.fill(black)
+
+
+        #Draw the planet first
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 50)
+
+        #Example orbit paths
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 100, 2)
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 150, 2)
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 200, 2)
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 250, 2)
+        pygame.draw.circle(screen, colour, (centre_x, centre_y), 300, 2)
+
+        pygame.draw.rect(screen, colour, (800, 0, 200, 800))
+
+        moon_a.update_parameter(screen, time.clock())
+        moon_b.update_parameter(screen, time.clock())
+        moon_c.update_parameter(screen, time.clock())
+        moon_d.update_parameter(screen, time.clock())
+        moon_e.update_parameter(screen, time.clock())
+
+        pygame.display.flip()
+
+if __name__ == "__main__":
+    #hardcode_test()
+    moonclass_test()
 
 
