@@ -17,10 +17,9 @@
 
 import pygame
 from os.path import join
-from button import Button
+from button import Button, exit_app
 
-
-def render_title_screen(app):
+def render_title_screen(app, MOUSE_POS=None):
     '''(App) -> NoneType'''
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
@@ -42,11 +41,10 @@ def render_title_screen(app):
 
     # levels button
     COORD = (100, 200)
-    WIDTH = 150
+    WIDTH = 600
     HEIGHT = 40
     TEXT = "levels"
-    COLOUR = WHITE
-    FOO = None
+    FOO = render_level_screen
     exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
             COLOUR=FONT_COLOUR, FOO=FOO)
     app.ui_elements.append(exit_button)
@@ -54,10 +52,9 @@ def render_title_screen(app):
 
     # exit button
     COORD = (100, 300)
-    WIDTH = 90
+    WIDTH = 600
     HEIGHT = 40
     TEXT = "exit"
-    COLOUR = WHITE
     FOO = exit_app
     exit_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY, FONT_SIZE,
             COLOUR=FONT_COLOUR, FOO=FOO)
@@ -66,6 +63,48 @@ def render_title_screen(app):
 
     pygame.display.update()
 
-def exit_app(app, MOUSE_POS):
+def render_level_screen(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
-    app.running = False
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+
+    FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
+    FONT_SIZE = 30
+    FONT_COLOUR = WHITE
+
+    app.window.fill(BLACK)
+
+    # title screen button
+    COORD = (100, 50)
+    WIDTH = 600
+    HEIGHT = 40
+    TEXT = "title screen"
+    FOO = render_title_screen
+    title_screen_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
+            FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
+    app.ui_elements.append(title_screen_button)
+    title_screen_button.render(app.window)
+
+    # level 1 button
+    COORD = (100, 150)
+    WIDTH = 600
+    HEIGHT = 40
+    TEXT = "level 1"
+    FOO = None # TODO ########################################################
+    level1_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
+            FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
+    app.ui_elements.append(level1_button)
+    level1_button.render(app.window)
+
+    # level 2 button
+    COORD = (100, 200)
+    WIDTH = 600
+    HEIGHT = 40
+    TEXT = "level 2"
+    FOO = None # TODO ########################################################
+    level2_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
+            FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
+    app.ui_elements.append(level2_button)
+    level2_button.render(app.window)
+
+    pygame.display.update()
