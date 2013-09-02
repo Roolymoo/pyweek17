@@ -24,6 +24,8 @@ def render_title_screen(app, MOUSE_POS=None):
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
+    app.ui_elements = [] # remove old ui elements in old screen, if any
+
     FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
     FONT_SIZE = 30
     FONT_COLOUR = WHITE
@@ -67,6 +69,8 @@ def render_level_screen(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
+
+    app.ui_elements = [] # remove old ui elements in old screen, if any
 
     FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
     FONT_SIZE = 30
