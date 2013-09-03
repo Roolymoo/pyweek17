@@ -86,6 +86,15 @@ class Moon:
 
         self.draw(SURFACE)
 
+    #May not need: checking collision through rectangle bounds is less "accurate"
+    def get_rect(self):
+        '''(Moon) -> Rect
+        Returns the Rect bounding the Moon in its current location.  This
+        Rect top left corner is relative to the location of the moons
+        coordinates on the SURFACE.
+        '''
+        return (self.current_x - self.radius, self.current_y - self.radius, self.radius * 2, self.radius * 2)
+
     def draw(self, SURFACE):
         '''(Moon, pygame.Surface) -> Rect
         Draws the moon on the surface provided and returns a Rect bounding
