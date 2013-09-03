@@ -31,7 +31,6 @@ def get_init_data():
     
     #Opens the file
     with open(INIT_FILE, "r") as FILE:
-        
         #Saves the property and values
         for line in FILE:
             property, *vals = line.split() #property:string, *vals:list
