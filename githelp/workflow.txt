@@ -19,3 +19,5 @@ other stuff:
     - then commit and push like usual
 - to cancel a commit
     - git reset HEAD^
+- to move a file
+    - git mv filename dest/filename
