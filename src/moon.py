@@ -16,6 +16,7 @@
 ##############################################################################
 import pygame
 import math
+from os.path import join
 
 #Note: the radius from the centre of the planet is determined as follows:
 #Orbit 1: 100, Orbit 2: 150, ..., all the way to Orbit 5: 300 (increment 50)
@@ -40,7 +41,8 @@ class Moon:
         self.radius = radius
 
         #Sets up the image and the area it affects
-        self.image = pygame.image.load("moon_" + str(radius) + ".bmp")
+        self.image = pygame.image.load(
+                join("data", "img", "moon", "moon_" + str(radius) + ".bmp"))
         self.area = self.image.get_rect()
 
         #Restriction based on path and radius
