@@ -19,6 +19,7 @@ import pygame
 from os.path import join
 from button import Button, exit_app
 from label import Label
+from levels import load_level1
 
 def render_title_menu_screen(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
@@ -97,29 +98,35 @@ def render_level_menu_screen(app, MOUSE_POS=None):
     WIDTH = 800
     HEIGHT = 40
     TEXT = "level 1"
-    FOO = render_level_screen # DEBUG ########################################
+    FOO = render_level1
     level1_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
             FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
     app.ui_elements.append(level1_button)
     level1_button.render(app.window)
 
-    # level 2 button
-    COORD = (100, 250)
-    WIDTH = 800
-    HEIGHT = 40
-    TEXT = "level 2"
-    FOO = render_level_screen # DEBUG ########################################
-    level2_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
-            FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
-    app.ui_elements.append(level2_button)
-    level2_button.render(app.window)
+    # # level 2 button
+    # COORD = (100, 250)
+    # WIDTH = 800
+    # HEIGHT = 40
+    # TEXT = "level 2"
+    # FOO = render_level_screen # DEBUG ########################################
+    # level2_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
+            # FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
+    # app.ui_elements.append(level2_button)
+    # level2_button.render(app.window)
 
     app.to_update.append(None) # update whole software display
 
     app.status = 1
 
-def render_level_screen(app, MOUSE_POS=None):
+def render_level1(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
+    render_level_screen(app)
+
+    load_level1(app)
+
+def render_level_screen(app):
+    '''(App) -> NoneType'''
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
