@@ -90,6 +90,7 @@ class Moon:
         self.current_x = (((self.path - 1) * 50) + 100) * math.cos(self.parameter / self.restrict) + 400
         self.current_y = (((self.path - 1) * 50) + 100) * math.sin(self.parameter / self.restrict) + 400
 
+<<<<<<< HEAD
         return self.update_area(self, SURFACE)
 
     def update_area(self, SURFACE):
@@ -103,6 +104,8 @@ class Moon:
         # sqrt(2)
         self.area = (self.current_x - self.area_halflength, self.current_y - self.area_halflength,
                      self.area_halflength * 2, self.area_halflength * 2)
+=======
+>>>>>>> a14d21e272b307578aa9b71aa19ea12b5982313e
         return self.draw(SURFACE)
 
     #May not need: checking collision through rectangle bounds is less "accurate"
