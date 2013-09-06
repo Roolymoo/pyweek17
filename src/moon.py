@@ -84,7 +84,7 @@ class Moon:
         self.current_x = (((self.path - 1) * 50) + 100) * math.cos(self.parameter / self.restrict) + 400
         self.current_y = (((self.path - 1) * 50) + 100) * math.sin(self.parameter / self.restrict) + 400
 
-        self.draw(SURFACE)
+        return self.draw(SURFACE)
 
     #May not need: checking collision through rectangle bounds is less "accurate"
     def get_rect(self):
