@@ -29,7 +29,7 @@ Uses Python v3.3.2 and Pygame v1.9.2
     * Moons further out in orbits and larger in size will move slower, and moons in lower orbits (closer to the planet) and that are smaller in size will move faster.
     * There is no limit to how many asteroids a moon can destroy.
 
-* Known Problems
+# Known Problems
 
 1. There is a minor rendering error with the planet where little chunks of it will be missing.
 2. Planets render a little weird.
