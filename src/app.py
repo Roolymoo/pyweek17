@@ -17,7 +17,7 @@
 
 import pygame
 from pygame.locals import QUIT, MOUSEBUTTONUP
-import time
+from time import perf_counter
 from init import get_init_data
 from render import render_title_menu_screen
 
@@ -46,7 +46,9 @@ class App:
         level_center    - ...
         planet          - ...
         play            - ...
-        orbits          - ...'''
+        orbits          - ...
+        old_time        - ...
+        reset           - ...'''
         self.width = None
         self.height = None
         self.fps = None
@@ -63,6 +65,8 @@ class App:
         self.planet = None
         self.play = None
         self.orbits = None
+        self.old_time = None
+        self.reset = None
 
     def __del__(self):
         '''(App) -> NoneType
@@ -97,6 +101,8 @@ class App:
         self.planet = tuple()
         self.play = False
         self.orbits = []
+        self.old_time = 0
+        self.reset = False
 
         pygame.display.set_caption(self.title)
 
@@ -133,13 +139,16 @@ class App:
                             ui_elem.execute(self, mouse_pos)
 
             if self.play:
-                for orbit in self.orbits:
-                    self.to_update.append(pygame.draw.circle(*orbit))
-
                 for moon in self.moons:
                     self.to_update.append(moon.unrender(self))
-                    self.to_update.append(
-                            moon.update_parameter(self.window, time.clock()))
+                    if self.reset:
+                        self.old_time = perf_counter()
+                        self.reset = False
+                    self.to_update.append(moon.update_parameter(
+                                    self.window, perf_counter() - self.old_time))
+
+                for orbit in self.orbits:
+                    self.to_update.append(pygame.draw.circle(*orbit))
 
             for rect in self.to_update:
                 if rect == None:

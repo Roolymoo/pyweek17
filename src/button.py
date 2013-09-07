@@ -16,6 +16,7 @@
 ##############################################################################
 
 import pygame
+from time import perf_counter
 
 
 class Button:
@@ -65,15 +66,25 @@ class Button:
             self.foo(app, MOUSE_POS)
 
 
-def exit_app(app, MOUSE_POS):
+def exit_app(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
     app.running = False
 
-def play(app, MOUSE_POS):
+def play(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
     app.play = True
 
-def reset(app, MOUSE_POS):
+def reset(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
     app.play = False
+    app.reset = True
+
+    for moon in app.moons:
+        app.to_update.append(moon.unrender(app))
+        old_time = perf_counter()
+        app.to_update.append(moon.update_parameter(
+                app.window, perf_counter() - old_time))
+
+    for orbit in app.orbits:
+        app.to_update.append(pygame.draw.circle(*orbit))
     ...
