@@ -107,7 +107,7 @@ class App:
         self.running = True
         self.ui_elements = []
         self.window = pygame.display.set_mode((self.width, self.height))
-        self.title = "title"
+        self.title = "Moon Protection"
         self.status = -1 # no kind, game is loading
         self.to_update = []
         self.moons = []
