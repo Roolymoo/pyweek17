@@ -50,7 +50,7 @@ class Moon:
         #Note: Parameter, in addition to the orbit it is on determines coords
         self.parameter = 0
         self.current_x = (((self.path - 1) * 50) + 100) * math.cos(self.parameter / self.restrict) + 400
-        self.current_y = (((self.path - 1) * 50) + 100) * math.cos(self.parameter / self.restrict) + 400
+        self.current_y = (((self.path - 1) * 50) + 100) * math.sin(self.parameter / self.restrict) + 400
 
         #Note: this rect is the rect used to check for collision
         #Note: since the angle is 45 degrees, then the side length of the
