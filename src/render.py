@@ -36,7 +36,7 @@ def render_title_menu_screen(app, MOUSE_POS=None):
     app.window.fill(BLACK)
 
     # title
-    TEXT = "title"
+    TEXT = app.title
     COORD = (100, 100)
     title_label = Label(TEXT, COORD, FONT_FAMILY, FONT_SIZE, FONT_COLOUR)
     app.ui_elements.append(title_label)
