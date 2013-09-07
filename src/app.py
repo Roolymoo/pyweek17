@@ -52,8 +52,10 @@ class App:
         old_time        - ...
         reset           - ...
         asteroids       - ...
+        asteroids_ingame - ...
         selected_moon   - ...
-        updated_moon_pos - ...'''
+        updated_moon_pos - ...
+        num_orbits      - ...'''
         self.width = None
         self.height = None
         self.fps = None
@@ -73,8 +75,10 @@ class App:
         self.old_time = None
         self.reset = None
         self.asteroids = None
+        self.asteroids_ingame = None
         self.selected_moon = None
         self.updated_moon_pos = None
+        self.num_orbits = None
 
     def __del__(self):
         '''(App) -> NoneType
@@ -112,8 +116,10 @@ class App:
         self.old_time = 0
         self.reset = False
         self.asteroids = []
+        self.asteroids_ingame = []
         self.selected_moon = None
         self.updated_moon_pos = False
+        self.num_orbits = 0
 
         pygame.display.set_caption(self.title)
 
@@ -176,8 +182,8 @@ class App:
 
                 keep = []
                 i = 0
-                for i in range(len(self.asteroids)):
-                    asteroid = self.asteroids[i]
+                for i in range(len(self.asteroids_ingame)):
+                    asteroid = self.asteroids_ingame[i]
                     self.to_update.append(asteroid.unrender(self))
                     self.to_update.append(
                             asteroid.update_parameter(self.window, 
@@ -188,6 +194,9 @@ class App:
                     # TODO optimize ##########################################
                     for moon in self.moons:
                         if asteroid.collides_with(moon.area):
+                            FILE = join("data", "audio", "effects", "moon_planet_collision.wav")
+                            pygame.mixer.music.load(FILE)
+                            pygame.mixer.music.play()
                             self.to_update.append(asteroid.unrender(self))
                             break
                     else:
@@ -203,17 +212,16 @@ class App:
 
                 if self.play:
                     # could be false due to planet-asteroid collision
-                    self.asteroids = [(lambda i: self.asteroids[i])(i) for i in keep]
+                    self.asteroids_ingame = [(lambda i: self.asteroids_ingame[i])(i) for i in keep]
 
                     for orbit in self.orbits:
                         self.to_update.append(pygame.draw.circle(*orbit))
 
-                    if self.asteroids == []:
+                    if self.asteroids_ingame == []:
                         # win!
                         FILE = join("data", "audio", "effects", "win.wav")
                         pygame.mixer.music.load(FILE)
                         pygame.mixer.music.play()
-                        self.play = False
                         render_level_menu_screen(self)
 
             if self.updated_moon_pos:

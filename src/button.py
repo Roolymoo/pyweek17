@@ -79,16 +79,24 @@ def reset(app, MOUSE_POS=None):
     app.play = False
     app.reset = True
     app.selected_moon = None
+    app.asteroids_ingame = app.asteroids.copy()
 
+    # unrender everything first
     for moon in app.moons:
         app.to_update.append(moon.unrender(app))
         old_time = perf_counter()
         app.to_update.append(moon.update_parameter(
                 app.window, perf_counter() - old_time))
 
-    for asteroid in app.asteroids:
+    for asteroid in app.asteroids_ingame:
         app.to_update.append(asteroid.unrender(app))
         asteroid.parameter = perf_counter() - old_time
+
+    # start rendering now
+    for moon in app.moons:
+        old_time = perf_counter()
+        app.to_update.append(moon.update_parameter(
+                app.window, perf_counter() - old_time))
 
     for orbit in app.orbits:
         app.to_update.append(pygame.draw.circle(*orbit))
