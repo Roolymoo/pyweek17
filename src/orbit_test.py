@@ -125,7 +125,7 @@ def class_test():
 
             #Checks for collision with each of the moons
             for moon in moons:
-                if asteroid.collides_with(moon):
+                if asteroid.collides_with(moon.area):
                     asteroids.remove(asteroid)
 
         pygame.display.flip()

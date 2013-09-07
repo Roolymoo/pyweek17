@@ -111,12 +111,12 @@ class Asteroid():
             app.window.fill(app.background, self.get_rect())
         return self.get_rect()
 
-    def collides_with(self, moon):
-        '''(Asteroid, Moon) -> bool
-        Returns if there is a collision with the asteroid and the moon.
+    def collides_with(self, RECT):
+        '''(Asteroid, Rect) -> bool
+        Returns if there is a collision with the asteroid and the Rect.
         '''
-        #Checks for a collision between the asteroid and the moon square hitboxes
-        if self.area.colliderect(moon.area):
+        #Checks for a collision between the asteroid and the Rect
+        if self.area.colliderect(RECT):
             return True
 
 
