@@ -23,6 +23,7 @@
 import pygame
 import math
 import time
+from asteroid import Asteroid
 from moon import Moon
 
 pygame.init()
@@ -67,13 +68,28 @@ def hardcode_test():
         pygame.draw.circle(screen, colour, (int(250 * math.cos(time.clock() / 4) + centre_x), int(250 * math.sin(time.clock() / 4) + centre_y)), 10)
         pygame.display.flip()
 
-def moonclass_test():
+def class_test():
 
     moon_a = Moon(1, 10)
     moon_b = Moon(2, 15)
     moon_c = Moon(3, 20)
     moon_d = Moon(4, 15)
     moon_e = Moon(5, 10)
+
+    moons = list()
+
+    moons.extend([moon_a, moon_b, moon_c, moon_d, moon_e])
+
+    asteroids = list()
+
+    asteroid_a = Asteroid(0, 0, 12)
+    asteroid_b = Asteroid(0, 100, 12)
+    asteroid_c = Asteroid(0, 500, 12)
+    asteroid_d = Asteroid(300, 800, 12)
+    asteroid_e = Asteroid(600, 800, 12)
+    asteroid_f = Asteroid(800, 400, 12)
+
+    asteroids.extend([asteroid_a, asteroid_b, asteroid_c, asteroid_d, asteroid_e, asteroid_f])
 
     while 1:
         screen.fill(black)
@@ -91,16 +107,24 @@ def moonclass_test():
 
         pygame.draw.rect(screen, colour, (800, 0, 200, 800))
 
-        moon_a.update_parameter(screen, time.clock())
-        moon_b.update_parameter(screen, time.clock())
-        moon_c.update_parameter(screen, time.clock())
-        moon_d.update_parameter(screen, time.clock())
-        moon_e.update_parameter(screen, time.clock())
+
+        #Moves the moons
+        for moon in moons:
+            moon.update_parameter(screen, time.clock())
+
+        #Moves the asteroids and checks for collisions
+        for asteroid in asteroids:
+            asteroid.update_parameter(screen, time.clock())
+
+            #Checks for collision with each of the moons
+            for moon in moons:
+                if asteroid.collides_with(moon):
+                    asteroids.remove(asteroid)
 
         pygame.display.flip()
 
 if __name__ == "__main__":
     #hardcode_test()
-    moonclass_test()
+    class_test()
 
 

@@ -30,7 +30,7 @@ from os.path import join
 
 #Restriction 2: Size of the moon
 #The higher the radius of the moon, the slower it will go (smaller effect than orbit path)
-#Radius: x(0.1 x radius) effect on the moon's period
+#Radius: x(0.15 x radius) effect on the moon's period
 #Note: the radius always ranges from 10 to 20, so it will have effect for sure
 
 class Moon:
@@ -56,7 +56,7 @@ class Moon:
         #Note: since the angle is 45 degrees, then the side length of the
         # square hitbox is 2(r/sqrt(2))
         self.area_halflength = int(self.radius / math.sqrt(2))
-        self.area = (self.current_x - self.area_halflength, self.current_y - self.area_halflength,
+        self.area = pygame.Rect(self.current_x - self.area_halflength, self.current_y - self.area_halflength,
                      self.area_halflength * 2, self.area_halflength * 2)
 
     #Note: will be called when the player places the moon on a new orbit

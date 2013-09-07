@@ -16,6 +16,8 @@
 ##############################################################################
 
 import math
+import pygame
+from os.path import join
 
 #Note: The asteroid class should handle a few things:
 #1. Check collision with the moon/planet
@@ -28,27 +30,27 @@ class Asteroid():
         self.radius = radius
 
         #Sets up the image
-        self.image = pygame.image.load(
-                join("data", "img", "asteroid", "asteroid_" + str(radius) + ".bmp"))
+        self.image = pygame.image.load(join("data", "img", "asteroid", "asteroid_" + str(radius) + ".bmp"))
 
         #Note: Parameter, in addition to the orbit it is on determines coords
         self.parameter = 0
         self.current_x = starting_x
-        self.curreny_y = starting_y
+        self.current_y = starting_y
 
         self.starting_x = starting_x
         self.starting_y = starting_y
 
         #self.rate describes how fast the asteroid will be approaching the planet
-        #the rate should be (planet.x - starting_x) / radius
-        self.x_rate = (400 - current_x) / radius
-        self.y_rate = (400 - current_y) / radius
+        #changes depending on which quadrant the asteroid starts on (origin is planet)
+        self.x_rate = (400 - self.starting_x) / radius / 3
+
+        self.y_rate = (400 - self.starting_y) / radius / 3
 
         #Note: this rect is the rect used to check for collision
         #Note: since the angle is 45 degrees, then the side length of the
         # square hitbox is 2(r/sqrt(2))
         self.area_halflength = int(self.radius / math.sqrt(2))
-        self.area = (self.current_x - self.area_halflength, self.current_y - self.area_halflength,
+        self.area = pygame.Rect(self.current_x - self.area_halflength, self.current_y - self.area_halflength,
                      self.area_halflength * 2, self.area_halflength * 2)
 
     #Note: will be called when the player moves the moon around the orbit
@@ -69,8 +71,8 @@ class Asteroid():
         #Note that the coordinates should be as follows:
         #x = starting_x + x_rate / parameter
         #y = starting_y + y_rate / parameter
-        self.current_x = starting_x + (self.x_rate / parameter)
-        self.current_y = starting_y + (self.y_rate / parameter)
+        self.current_x = self.starting_x + (self.x_rate * self.parameter)
+        self.current_y = self.starting_y + (self.y_rate * self.parameter)
 
         return self.update_area(SURFACE)
 
@@ -83,7 +85,7 @@ class Asteroid():
         #Note: since the angle is 45 degrees, then the side length of the
         # square hitbox is 2(r/sqrt(2)); we use an approximation of 1.41 for
         # sqrt(2)
-        self.area = (self.current_x - self.area_halflength, self.current_y - self.area_halflength,
+        self.area = pygame.Rect(self.current_x - self.area_halflength, self.current_y - self.area_halflength,
                      self.area_halflength * 2, self.area_halflength * 2)
         return self.draw(SURFACE)
 
@@ -109,7 +111,7 @@ class Asteroid():
             app.window.fill(app.background, self.get_rect())
         return self.get_rect()
 
-    def is_collision_moon(self, moon):
+    def collides_with(self, moon):
         '''(Asteroid, Moon) -> bool
         Returns if there is a collision with the asteroid and the moon.
         '''
