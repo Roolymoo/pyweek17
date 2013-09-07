@@ -16,7 +16,7 @@
 ##############################################################################
 
 import pygame
-from pygame.locals import QUIT, MOUSEBUTTONUP, KEYUP, K_LEFT, K_RIGHT
+from pygame.locals import QUIT, MOUSEBUTTONUP, KEYDOWN, K_LEFT, K_RIGHT
 from time import perf_counter
 from os.path import join
 from init import get_init_data
@@ -91,6 +91,8 @@ class App:
         fails to load, returns -1. Otherwise returns 0.'''
         pygame.init()
 
+        pygame.key.set_repeat(50, 25) # allow holding down of keys
+
         DATA = get_init_data()
 
         #get_init_data failed to get anything meaningful
@@ -159,7 +161,7 @@ class App:
                         for moon in self.moons:
                             if moon.is_clicked(mouse_pos):
                                 self.selected_moon = moon
-                elif event.type == KEYUP:
+                elif event.type == KEYDOWN:
                     if self.play or (self.selected_moon == None):
                         continue
 
