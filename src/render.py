@@ -76,6 +76,9 @@ def render_level_menu_screen(app, MOUSE_POS=None):
     if app.play:
         reset(app)
     app.moons.clear() # remove any moons from old level
+    app.asteroids.clear() # remove any asteroids from old level
+    app.orbits.clear() # remove any orbits from old level
+    app.selected_moon = None # remove selected moon from old level
     app.ui_elements.clear() # remove old ui elements in old screen, if any
 
     FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
@@ -130,7 +133,9 @@ def render_level1(app, MOUSE_POS=None):
 
     render_level_screen(app)
 
-    pygame.draw.circle(*app.planet)
+    rect = pygame.draw.circle(app.window, *app.planet.get_data())
+    app.to_update.append(rect)
+    app.planet.rect = rect
 
     ORBIT_WIDTH = 1
     ORBIT_PADDING = 50

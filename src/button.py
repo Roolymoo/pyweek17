@@ -78,6 +78,7 @@ def reset(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
     app.play = False
     app.reset = True
+    app.selected_moon = None
 
     for moon in app.moons:
         app.to_update.append(moon.unrender(app))
@@ -85,6 +86,9 @@ def reset(app, MOUSE_POS=None):
         app.to_update.append(moon.update_parameter(
                 app.window, perf_counter() - old_time))
 
+    for asteroid in app.asteroids:
+        app.to_update.append(asteroid.unrender(app))
+        asteroid.parameter = perf_counter() - old_time
+
     for orbit in app.orbits:
         app.to_update.append(pygame.draw.circle(*orbit))
-    ...

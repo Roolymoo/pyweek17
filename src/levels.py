@@ -15,7 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
+from planet import Planet
 from moon import Moon
+from asteroid import Asteroid
 
 
 def load_level1(app):
@@ -25,7 +27,13 @@ def load_level1(app):
 
     MOON1_ORBIT, MOON1_RADIUS = 1, 20
 
+    ASTEROID1_STARTX, ASTEROID1_STARTY, ASTEROID1_RADIUS = 0, 0, 12
+
     PLANET_RADIUS = 50
-    app.planet = (app.window, RED, app.level_center, PLANET_RADIUS)
+
+    app.planet = Planet(RED, app.level_center, PLANET_RADIUS)
 
     app.moons.append(Moon(MOON1_ORBIT, MOON1_RADIUS))
+
+    app.asteroids.append(
+            Asteroid(ASTEROID1_STARTX, ASTEROID1_STARTY, ASTEROID1_RADIUS))

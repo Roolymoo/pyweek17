@@ -16,10 +16,12 @@
 ##############################################################################
 
 import pygame
-from pygame.locals import QUIT, MOUSEBUTTONUP
+from pygame.locals import QUIT, MOUSEBUTTONUP, KEYUP, K_LEFT, K_RIGHT
 from time import perf_counter
+from os.path import join
 from init import get_init_data
-from render import render_title_menu_screen
+from render import render_title_menu_screen, render_level_menu_screen
+from button import reset
 
 
 class App:
@@ -48,7 +50,10 @@ class App:
         play            - ...
         orbits          - ...
         old_time        - ...
-        reset           - ...'''
+        reset           - ...
+        asteroids       - ...
+        selected_moon   - ...
+        updated_moon_pos - ...'''
         self.width = None
         self.height = None
         self.fps = None
@@ -67,6 +72,9 @@ class App:
         self.orbits = None
         self.old_time = None
         self.reset = None
+        self.asteroids = None
+        self.selected_moon = None
+        self.updated_moon_pos = None
 
     def __del__(self):
         '''(App) -> NoneType
@@ -98,11 +106,14 @@ class App:
         self.to_update = []
         self.moons = []
         self.level_center = (400, 400)
-        self.planet = tuple()
+        self.planet = None
         self.play = False
         self.orbits = []
         self.old_time = 0
         self.reset = False
+        self.asteroids = []
+        self.selected_moon = None
+        self.updated_moon_pos = False
 
         pygame.display.set_caption(self.title)
 
@@ -132,11 +143,26 @@ class App:
                     self.exit()
                 #Mouse click event
                 elif event.type == MOUSEBUTTONUP:
+                    mouse_pos = pygame.mouse.get_pos()
                     #Elements for ui include button
                     for ui_elem in self.ui_elements:
-                        mouse_pos = pygame.mouse.get_pos()
                         if ui_elem.is_clicked(mouse_pos):
                             ui_elem.execute(self, mouse_pos)
+
+                    if not self.play:
+                        for moon in self.moons:
+                            if moon.is_clicked(mouse_pos):
+                                self.selected_moon = moon
+                elif event.type == KEYUP:
+                    if self.play or (self.selected_moon == None):
+                        continue
+
+                    if event.key == K_LEFT:
+                        self.selected_moon.parameter_mod -= 0.1
+                        self.updated_moon_pos = True
+                    elif event.key == K_RIGHT:
+                        self.selected_moon.parameter_mod += 0.1
+                        self.updated_moon_pos = True
 
             if self.play:
                 for moon in self.moons:
@@ -146,9 +172,61 @@ class App:
                         self.reset = False
                     self.to_update.append(moon.update_parameter(
                                     self.window, perf_counter() - self.old_time))
+                                    # self.window, moon.parameter + 0.1))
+
+                keep = []
+                i = 0
+                for i in range(len(self.asteroids)):
+                    asteroid = self.asteroids[i]
+                    self.to_update.append(asteroid.unrender(self))
+                    self.to_update.append(
+                            asteroid.update_parameter(self.window, 
+                                    perf_counter() - self.old_time))
+                                    # asteroid.parameter + 0.1))
+
+                    #Checks for collision with each of the moons
+                    # TODO optimize ##########################################
+                    for moon in self.moons:
+                        if asteroid.collides_with(moon.area):
+                            self.to_update.append(asteroid.unrender(self))
+                            break
+                    else:
+                        keep.append(i)
+
+                    # check for planet collision
+                    if asteroid.collides_with(self.planet.rect):
+                        FILE = join("data", "audio", "effects", "moon_planet_collision.wav")
+                        pygame.mixer.music.load(FILE)
+                        pygame.mixer.music.play()
+                        reset(self)
+                    i += 1
+
+                if self.play:
+                    # could be false due to planet-asteroid collision
+                    self.asteroids = [(lambda i: self.asteroids[i])(i) for i in keep]
+
+                    for orbit in self.orbits:
+                        self.to_update.append(pygame.draw.circle(*orbit))
+
+                    if self.asteroids == []:
+                        # win!
+                        FILE = join("data", "audio", "effects", "win.wav")
+                        pygame.mixer.music.load(FILE)
+                        pygame.mixer.music.play()
+                        self.play = False
+                        render_level_menu_screen(self)
+
+            if self.updated_moon_pos:
+                # update moons in case user moved them around
+                for moon in self.moons:
+                    self.to_update.append(moon.unrender(self))
+                    self.to_update.append(moon.update_parameter(
+                                    self.window, 0))
 
                 for orbit in self.orbits:
                     self.to_update.append(pygame.draw.circle(*orbit))
+
+                self.updated_moon_pos = False
 
             for rect in self.to_update:
                 if rect == None:
