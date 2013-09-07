@@ -90,7 +90,7 @@ class Moon:
         self.current_x = (((self.path - 1) * 50) + 100) * math.cos(self.parameter / self.restrict) + 400
         self.current_y = (((self.path - 1) * 50) + 100) * math.sin(self.parameter / self.restrict) + 400
 
-        return self.update_area(self, SURFACE)
+        return self.update_area(SURFACE)
 
     def update_area(self, SURFACE):
         '''(Moon, pygame.display) -> Rect
@@ -101,7 +101,7 @@ class Moon:
         #Note: since the angle is 45 degrees, then the side length of the
         # square hitbox is 2(r/sqrt(2)); we use an approximation of 1.41 for
         # sqrt(2)
-        self.area = (self.current_x - self.area_halflength, self.current_y - self.area_halflength,
+        self.area = pygame.Rect(self.current_x - self.area_halflength, self.current_y - self.area_halflength,
                      self.area_halflength * 2, self.area_halflength * 2)
 
         return self.draw(SURFACE)
