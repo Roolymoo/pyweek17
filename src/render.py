@@ -73,6 +73,8 @@ def render_level_menu_screen(app, MOUSE_POS=None):
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
+    if app.play:
+        reset(app)
     app.moons.clear() # remove any moons from old level
     app.ui_elements.clear() # remove old ui elements in old screen, if any
 
