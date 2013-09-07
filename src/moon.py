@@ -40,10 +40,9 @@ class Moon:
         self.path = orbit_path
         self.radius = radius
 
-        #Sets up the image and the area it affects
+        #Sets up the image
         self.image = pygame.image.load(
                 join("data", "img", "moon", "moon_" + str(radius) + ".bmp"))
-        self.area = self.image.get_rect()
 
         #Restriction based on path and radius
         self.restrict = orbit_path * 0.1 * radius
@@ -52,6 +51,13 @@ class Moon:
         self.parameter = 0
         self.current_x = (((self.path - 1) * 50) + 100) * math.cos(self.parameter / self.restrict) + 400
         self.current_y = (((self.path - 1) * 50) + 100) * math.cos(self.parameter / self.restrict) + 400
+
+        #Note: this rect is the rect used to check for collision
+        #Note: since the angle is 45 degrees, then the side length of the
+        # square hitbox is 2(r/sqrt(2))
+        self.area_halflength = int(self.radius / math.sqrt(2))
+        self.area = (self.current_x - self.area_halflength, self.current_y - self.area_halflength,
+                     self.area_halflength * 2, self.area_halflength * 2)
 
     #Note: will be called when the player places the moon on a new orbit
     def update_orbit(self, SURFACE, orbit):
@@ -84,6 +90,20 @@ class Moon:
         self.current_x = (((self.path - 1) * 50) + 100) * math.cos(self.parameter / self.restrict) + 400
         self.current_y = (((self.path - 1) * 50) + 100) * math.sin(self.parameter / self.restrict) + 400
 
+        return self.update_area(self, SURFACE)
+
+    def update_area(self, SURFACE):
+        '''(Moon, pygame.display) -> Rect
+        This updates the rectangle used to check for collisions with the
+        asteroid class.  The rectangle is a hitbox that has diagonals
+        45 degrees against the centre axes of symmetry.  This will return
+        a Rect bounding the moon.'''
+        #Note: since the angle is 45 degrees, then the side length of the
+        # square hitbox is 2(r/sqrt(2)); we use an approximation of 1.41 for
+        # sqrt(2)
+        self.area = (self.current_x - self.area_halflength, self.current_y - self.area_halflength,
+                     self.area_halflength * 2, self.area_halflength * 2)
+
         return self.draw(SURFACE)
 
     #May not need: checking collision through rectangle bounds is less "accurate"
@@ -93,7 +113,7 @@ class Moon:
         Rect top left corner is relative to the location of the moons
         coordinates on the SURFACE.
         '''
-        return (self.current_x - self.radius, self.current_y - self.radius, self.radius * 2, self.radius * 2)
+        return pygame.Rect(self.current_x - self.radius, self.current_y - self.radius, self.radius * 2, self.radius * 2)
 
     def draw(self, SURFACE):
         '''(Moon, pygame.Surface) -> Rect
