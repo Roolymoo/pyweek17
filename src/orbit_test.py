@@ -21,6 +21,7 @@
 #         -(add more later)
 
 import pygame
+from pygame.locals import QUIT
 import math
 import time
 from asteroid import Asteroid
@@ -69,6 +70,8 @@ def hardcode_test():
         pygame.display.flip()
 
 def class_test():
+    fps_clock = pygame.time.Clock()
+    FPS = 30
 
     moon_a = Moon(1, 10)
     moon_b = Moon(2, 15)
@@ -91,7 +94,12 @@ def class_test():
 
     asteroids.extend([asteroid_a, asteroid_b, asteroid_c, asteroid_d, asteroid_e, asteroid_f])
 
-    while 1:
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                running = False
+
         screen.fill(black)
 
 
@@ -123,8 +131,11 @@ def class_test():
 
         pygame.display.flip()
 
+        fps_clock.tick(FPS)
+
 if __name__ == "__main__":
     #hardcode_test()
     class_test()
+    pygame.quit()
 
 
