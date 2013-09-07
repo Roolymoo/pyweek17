@@ -41,3 +41,7 @@ Uses [Python v3.3.2](http://www.python.org/download/) and [Pygame v1.9.2](https:
 * All Python code was written from scratch by the authors Dickson Wong and Lucas Ashbury-Bridgwood.
 * Images made by Dickson Wong.
 * Sound effects made by Lucas Ashbury-Bridgwood using [sfxr](http://www.drpetter.se/project_sfxr.html).
+
+# License
+
+* This is released under the GNU GENERAL PUBLIC LICENSE Version 3. See the LICENSE file that was distributed with this game.
