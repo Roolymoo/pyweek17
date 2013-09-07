@@ -68,3 +68,12 @@ class Button:
 def exit_app(app, MOUSE_POS):
     '''(App, tuple) -> NoneType'''
     app.running = False
+
+def play(app, MOUSE_POS):
+    '''(App, tuple) -> NoneType'''
+    app.play = True
+
+def reset(app, MOUSE_POS):
+    '''(App, tuple) -> NoneType'''
+    app.play = False
+    ...
