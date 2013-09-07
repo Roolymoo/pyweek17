@@ -49,6 +49,7 @@ class Moon:
 
         #Note: Parameter, in addition to the orbit it is on determines coords
         self.parameter = 0
+        self.parameter_mod = 0 # for user moving moon around
         self.current_x = (((self.path - 1) * 50) + 100) * math.cos(self.parameter / self.restrict) + 400
         self.current_y = (((self.path - 1) * 50) + 100) * math.sin(self.parameter / self.restrict) + 400
 
@@ -76,7 +77,7 @@ class Moon:
         on the orbit path and updates the coordinates. Draws the Moon in its
         new location and returns the Rect bounding it.
         '''
-        self.parameter = param
+        self.parameter = param + self.parameter_mod
         return self.update_coordinates(SURFACE)
 
     def update_coordinates(self, SURFACE):
@@ -128,3 +129,7 @@ class Moon:
         if type(app.background) == tuple:
             app.window.fill(app.background, self.get_rect())
         return self.get_rect()
+
+    def is_clicked(self, MOUSE_POS):
+        '''(Moon, tuple) -> bool'''
+        return self.get_rect().collidepoint(MOUSE_POS)
