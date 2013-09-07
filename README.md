@@ -11,7 +11,7 @@ Uses [Python v3.3.2](http://www.python.org/download/) and [Pygame v1.9.2](https:
 
 1. Download all the files. [Quick link to the zip](https://github.com/5hassay/pyweek17/archive/master.zip).
 2. Run `main.py` with Python, such as with one's console on their computer. The latter is recommended to see the exit status of the program.
-3. The rest is straight forward except the rules of the game, which follows.
+3. The rest is straight forward except the rules of the game, which is below.
 4. Extra information:
     * It isn't recommended to mess with init.txt. It was a feature that didn't meet its intended implementation.
 
@@ -34,3 +34,10 @@ Uses [Python v3.3.2](http://www.python.org/download/) and [Pygame v1.9.2](https:
 1. There is a minor rendering error with the planet where little chunks of it will be missing.
 2. Planets render a little weird.
 3. The smallest planet is a bit hard to see.
+4. Yes, the code is pretty gross. This is because of time constraints (due to the nature of the project (one week to complete) and life). If you're looking to mess with the source, good luck, and sorry!
+
+# Notes on Source and Assets
+
+* All Python code was written from scratch by the authors Dickson Wong and Lucas Ashbury-Bridgwood.
+* Images made by Dickson Wong.
+* Sound effects made by Lucas Ashbury-Bridgwood using [sfxr](http://www.drpetter.se/project_sfxr.html).
