@@ -92,8 +92,8 @@ def class_test():
     asteroids.extend([asteroid_a, asteroid_b, asteroid_c, asteroid_d, asteroid_e, asteroid_f])
 
     while 1:
-        screen.fill(black)
 
+        screen.fill(black)
 
         #Draw the planet first
         pygame.draw.circle(screen, colour, (centre_x, centre_y), 50)
