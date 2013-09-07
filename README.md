@@ -1,7 +1,9 @@
 pyweek17
 ========
 
-Repo for PyWeek challenge #17
+Submission PyWeek challenge #17
+
+[Repository on Github](https://github.com/5hassay/pyweek17)
 
 Theme: "Moon"
 
