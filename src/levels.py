@@ -15,7 +15,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
+from moon import Moon
+
+
 def load_level1(app):
     '''(App) -> NoneType
     ...'''
-    ...
+    RED = (255, 0, 0)
+
+    MOON1_ORBIT, MOON1_RADIUS = 1, 20
+
+    PLANET_RADIUS = 50
+    app.planet = (app.window, RED, app.level_center, PLANET_RADIUS)
+
+    app.moons.append(Moon(MOON1_ORBIT, MOON1_RADIUS))

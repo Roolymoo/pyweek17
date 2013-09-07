@@ -17,6 +17,7 @@
 
 import pygame
 from pygame.locals import QUIT, MOUSEBUTTONUP
+import time
 from init import get_init_data
 from render import render_title_menu_screen
 
@@ -25,22 +26,27 @@ class App:
     def __init__(self):
         '''(App) -> NoneType
 
-        width       - window width
-        height      - window height
-        fps         - software display FPS
-        fps_clock   - controls software display FPS
-        running     - running status of game
-        ui_elements - currently used UI elements
-        window      - the software display
-        title       - game name
-        background  - current background. Either a colour (tuple) ...
-        status      - what kind of screen is being rendered currently.
-                        - -1 no kind
-                        - 0 title menu screen
-                        - 1 level menu screen
-                        - 2 game screen
-        to_update   - pygame.Rect's of window that need updating, or None to
-                      indicate that the whole display must be updated'''
+        width           - window width
+        height          - window height
+        fps             - software display FPS
+        fps_clock       - controls software display FPS
+        running         - running status of game
+        ui_elements     - currently used UI elements
+        window          - the software display
+        title           - game name
+        background      - current background. Either a colour (tuple) ...
+        status          - what kind of screen is being rendered currently.
+                            - -1 no kind
+                            - 0 title menu screen
+                            - 1 level menu screen
+                            - 2 game screen
+        to_update       - pygame.Rect's of window that need updating, or None to
+                          indicate that the whole display must be updated
+        moons           - ...
+        level_center    - ...
+        planet          - ...
+        play            - ...
+        orbits          - ...'''
         self.width = None
         self.height = None
         self.fps = None
@@ -52,6 +58,11 @@ class App:
         self.background = None
         self.status = None
         self.to_update = None
+        self.moons = None
+        self.level_center = None
+        self.planet = None
+        self.play = None
+        self.orbits = None
 
     def __del__(self):
         '''(App) -> NoneType
@@ -81,6 +92,11 @@ class App:
         self.title = "title"
         self.status = -1 # no kind, game is loading
         self.to_update = []
+        self.moons = []
+        self.level_center = (400, 400)
+        self.planet = tuple()
+        self.play = False
+        self.orbits = []
 
         pygame.display.set_caption(self.title)
 
@@ -115,6 +131,15 @@ class App:
                         mouse_pos = pygame.mouse.get_pos()
                         if ui_elem.is_clicked(mouse_pos):
                             ui_elem.execute(self, mouse_pos)
+
+            if self.play:
+                for orbit in self.orbits:
+                    self.to_update.append(pygame.draw.circle(*orbit))
+
+                for moon in self.moons:
+                    self.to_update.append(moon.unrender(self))
+                    self.to_update.append(
+                            moon.update_parameter(self.window, time.clock()))
 
             for rect in self.to_update:
                 if rect == None:

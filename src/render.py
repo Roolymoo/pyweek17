@@ -17,7 +17,7 @@
 
 import pygame
 from os.path import join
-from button import Button, exit_app
+from button import Button, exit_app, play, reset
 from label import Label
 from levels import load_level1
 
@@ -73,6 +73,7 @@ def render_level_menu_screen(app, MOUSE_POS=None):
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
+    app.moons.clear() # remove any moons from old level
     app.ui_elements.clear() # remove old ui elements in old screen, if any
 
     FONT_FAMILY = join("data", "font", "Alien-Encounters-Regular.ttf")
@@ -121,9 +122,27 @@ def render_level_menu_screen(app, MOUSE_POS=None):
 
 def render_level1(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
-    render_level_screen(app)
+    WHITE = (255, 255, 255)
 
     load_level1(app)
+
+    render_level_screen(app)
+
+    pygame.draw.circle(*app.planet)
+
+    ORBIT_WIDTH = 1
+    ORBIT_PADDING = 50
+    i = 1
+    while i <= len(app.moons):
+        app.orbits.append(
+                (app.window, WHITE, app.level_center, ORBIT_PADDING * (i + 1), 1))
+        i += 1
+
+    for orbit in app.orbits:
+        pygame.draw.circle(*orbit)
+
+    for moon in app.moons:
+        app.to_update.append(moon.draw(app.window))
 
 def render_level_screen(app):
     '''(App) -> NoneType'''
@@ -151,7 +170,7 @@ def render_level_screen(app):
     # play button
     COORD = (BUTTON_PADDING, 100 - BUTTON_HEIGHT)
     TEXT = "play"
-    FOO = None # TODO ########################################################
+    FOO = play
     play_button = Button(COORD, BUTTON_WIDTH, BUTTON_HEIGHT, TEXT,
             FONT_FAMILY, FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
     app.ui_elements.append(play_button)
@@ -160,7 +179,7 @@ def render_level_screen(app):
     # reset button
     COORD = (BUTTON_PADDING, 200 - BUTTON_HEIGHT)
     TEXT = "reset"
-    FOO = None # TODO ########################################################
+    FOO = reset
     reset_button = Button(COORD, BUTTON_WIDTH, BUTTON_HEIGHT, TEXT,
             FONT_FAMILY, FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
     app.ui_elements.append(reset_button)
