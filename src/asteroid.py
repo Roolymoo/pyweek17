@@ -36,6 +36,14 @@ class Asteroid():
         self.current_x = starting_x
         self.curreny_y = starting_y
 
+        self.starting_x = starting_x
+        self.starting_y = starting_y
+
+        #self.rate describes how fast the asteroid will be approaching the planet
+        #the rate should be (planet.x - starting_x) / radius
+        self.x_rate = (400 - current_x) / radius
+        self.y_rate = (400 - current_y) / radius
+
         #Note: this rect is the rect used to check for collision
         #Note: since the angle is 45 degrees, then the side length of the
         # square hitbox is 2(r/sqrt(2))
@@ -43,10 +51,33 @@ class Asteroid():
         self.area = (self.current_x - self.area_halflength, self.current_y - self.area_halflength,
                      self.area_halflength * 2, self.area_halflength * 2)
 
+    #Note: will be called when the player moves the moon around the orbit
+    def update_parameter(self, SURFACE, param):
+        '''(Asteroid, pygame.display, int) -> Rect
+        Updates the parameter that represents the location of the asteroid
+        on its path and updates the coordinates. Draws the asteroid in its
+        new location and returns the Rect bounding it.
+        '''
+        self.parameter = param
+        return self.update_coordinates(SURFACE)
+
+    def update_coordinates(self, SURFACE):
+        '''(Asteroid, pygame.display) -> Rect
+        Updates the coordinates of the Asteroid and redraws it, returning
+        the Rect bounding it.
+        '''
+        #Note that the coordinates should be as follows:
+        #x = starting_x + x_rate / parameter
+        #y = starting_y + y_rate / parameter
+        self.current_x = starting_x + (self.x_rate / parameter)
+        self.current_y = starting_y + (self.y_rate / parameter)
+
+        return self.update_area(SURFACE)
+
     def update_area(self, SURFACE):
-        '''(Moon, pygame.display) -> Rect
+        '''(Asteroid, pygame.display) -> Rect
         This updates the rectangle used to check for collisions with the
-        moon class.  The rectangle is a hitbox that has diagonals
+        asteroid class.  The rectangle is a hitbox that has diagonals
         45 degrees against the centre axes of symmetry.  This will return
         a Rect bounding the Asteroid.'''
         #Note: since the angle is 45 degrees, then the side length of the
@@ -55,6 +86,28 @@ class Asteroid():
         self.area = (self.current_x - self.area_halflength, self.current_y - self.area_halflength,
                      self.area_halflength * 2, self.area_halflength * 2)
         return self.draw(SURFACE)
+
+    def draw(self, SURFACE):
+        '''(Asteroid, pygame.Surface) -> Rect
+        Draws the asteroid on the surface provided and returns a Rect bounding
+        the Asteroid.
+        '''
+        return SURFACE.blit(self.image, (self.current_x - self.radius, self.current_y - self.radius))
+
+    def get_rect(self):
+        '''(Asteroid) -> Rect
+        Returns the Rect bounding the Asteroid in its current location.  This
+        Rect top left corner is relative to the location of the asteroid's
+        coordinates on the SURFACE.
+        '''
+        return pygame.Rect(self.current_x - self.radius, self.current_y - self.radius, self.radius * 2, self.radius * 2)
+
+    def unrender(self, app):
+        '''(Asteroid, App) -> Rect
+        Blits over self.rect with app.background on app.window.'''
+        if type(app.background) == tuple:
+            app.window.fill(app.background, self.get_rect())
+        return self.get_rect()
 
     def is_collision_moon(self, moon):
         '''(Asteroid, Moon) -> bool
