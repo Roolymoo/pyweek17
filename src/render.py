@@ -19,7 +19,7 @@ import pygame
 from os.path import join
 from button import Button, exit_app, play, reset
 from label import Label
-from levels import load_level1, load_level2
+from levels import load_level1, load_level2, load_level3
 
 def render_title_menu_screen(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
@@ -122,6 +122,17 @@ def render_level_menu_screen(app, MOUSE_POS=None):
     app.ui_elements.append(level2_button)
     level2_button.render(app.window)
 
+    # level 3 button
+    COORD = (100, 300)
+    WIDTH = 800
+    HEIGHT = 40
+    TEXT = "level 3"
+    FOO = render_level3
+    level3_button = Button(COORD, WIDTH, HEIGHT, TEXT, FONT_FAMILY,
+            FONT_SIZE, COLOUR=FONT_COLOUR, FOO=FOO)
+    app.ui_elements.append(level3_button)
+    level3_button.render(app.window)
+
     app.to_update.append(None) # update whole software display
 
     app.status = 1
@@ -157,6 +168,32 @@ def render_level2(app, MOUSE_POS=None):
     WHITE = (255, 255, 255)
 
     load_level2(app)
+
+    render_level_screen(app)
+
+    rect = pygame.draw.circle(app.window, *app.planet.get_data())
+    app.to_update.append(rect)
+    app.planet.rect = rect
+
+    ORBIT_WIDTH = 1
+    ORBIT_PADDING = 50
+    i = 1
+    while i <= app.num_orbits:
+        app.orbits.append(
+                (app.window, WHITE, app.level_center, ORBIT_PADDING * (i + 1), 1))
+        i += 1
+
+    for orbit in app.orbits:
+        pygame.draw.circle(*orbit)
+
+    for moon in app.moons:
+        app.to_update.append(moon.draw(app.window))
+
+def render_level3(app, MOUSE_POS=None):
+    '''(App, tuple) -> NoneType'''
+    WHITE = (255, 255, 255)
+
+    load_level3(app)
 
     render_level_screen(app)
 

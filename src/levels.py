@@ -71,3 +71,46 @@ def load_level2(app):
             Asteroid(ASTEROID3_STARTX, ASTEROID3_STARTY, ASTEROID3_RADIUS))
 
     app.asteroids_ingame = app.asteroids.copy()
+
+def load_level3(app):
+    '''(App) -> NoneType
+    ...'''
+    GREEN = (0, 255, 0)
+
+    MOON1_ORBIT, MOON1_RADIUS = 1, 20
+    MOON2_ORBIT, MOON2_RADIUS = 2, 10
+    MOON3_ORBIT, MOON3_RADIUS = 3, 15
+    MOON4_ORBIT, MOON4_RADIUS = 5, 15
+
+    ASTEROID1_STARTX, ASTEROID1_STARTY, ASTEROID1_RADIUS = 100, 100, 12
+    ASTEROID2_STARTX, ASTEROID2_STARTY, ASTEROID2_RADIUS = 680, 800, 12
+    ASTEROID3_STARTX, ASTEROID3_STARTY, ASTEROID3_RADIUS = 780, 400, 12
+    ASTEROID4_STARTX, ASTEROID4_STARTY, ASTEROID4_RADIUS = 400, 50, 12
+    ASTEROID5_STARTX, ASTEROID5_STARTY, ASTEROID5_RADIUS = 0, 400, 12
+    ASTEROID6_STARTX, ASTEROID6_STARTY, ASTEROID6_RADIUS = 780, 0, 12
+
+    PLANET_RADIUS = 50
+
+    app.num_orbits = 5
+
+    app.planet = Planet(GREEN, app.level_center, PLANET_RADIUS)
+
+    app.moons.append(Moon(MOON1_ORBIT, MOON1_RADIUS))
+    app.moons.append(Moon(MOON2_ORBIT, MOON2_RADIUS))
+    app.moons.append(Moon(MOON3_ORBIT, MOON3_RADIUS))
+    app.moons.append(Moon(MOON4_ORBIT, MOON4_RADIUS))
+
+    app.asteroids.append(
+            Asteroid(ASTEROID1_STARTX, ASTEROID1_STARTY, ASTEROID1_RADIUS))
+    app.asteroids.append(
+            Asteroid(ASTEROID2_STARTX, ASTEROID2_STARTY, ASTEROID2_RADIUS))
+    app.asteroids.append(
+            Asteroid(ASTEROID3_STARTX, ASTEROID3_STARTY, ASTEROID3_RADIUS))
+    app.asteroids.append(
+            Asteroid(ASTEROID4_STARTX, ASTEROID4_STARTY, ASTEROID4_RADIUS))
+    app.asteroids.append(
+            Asteroid(ASTEROID5_STARTX, ASTEROID5_STARTY, ASTEROID5_RADIUS))
+    app.asteroids.append(
+            Asteroid(ASTEROID6_STARTX, ASTEROID6_STARTY, ASTEROID6_RADIUS))
+
+    app.asteroids_ingame = app.asteroids.copy()

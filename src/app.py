@@ -210,6 +210,7 @@ class App:
                         pygame.mixer.music.load(FILE)
                         pygame.mixer.music.play()
                         reset(self)
+                        break
                     i += 1
 
                 if self.play:
