@@ -42,9 +42,9 @@ class Asteroid():
 
         #self.rate describes how fast the asteroid will be approaching the planet
         #changes depending on which quadrant the asteroid starts on (origin is planet)
-        self.x_rate = (400 - self.starting_x) / radius / 3
+        self.x_rate = (400 - self.starting_x) / radius / 1.5
 
-        self.y_rate = (400 - self.starting_y) / radius / 3
+        self.y_rate = (400 - self.starting_y) / radius / 1.5
 
         #Note: this rect is the rect used to check for collision
         #Note: since the angle is 45 degrees, then the side length of the
