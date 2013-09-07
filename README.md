@@ -9,7 +9,7 @@ Theme: "Moon"
 
 Uses [Python v3.3.2](http://www.python.org/download/) and [Pygame v1.9.2](https://bitbucket.org/pygame/pygame/downloads)!
 
-1. Download all the files.
+1. Download all the files. [Quick link to the zip](https://github.com/5hassay/pyweek17/archive/master.zip).
 2. Run `main.py` with Python, such as with one's console on their computer. The latter is recommended to see the exit status of the program.
 3. The rest is straight forward except the rules of the game, which follows.
 4. Extra information:
