@@ -5,9 +5,9 @@ Repo for PyWeek challenge #17
 
 Theme: "Moon"
 
-Uses Python v3.3.2 and Pygame v1.9.2
-
 # How to Run the Game
+
+Uses Python v3.3.2 and Pygame v1.9.2!
 
 1. Download all the files.
 2. Run `main.py` with Python, such as with one's console on their computer. The latter is recommended to see the exit status of the program.
