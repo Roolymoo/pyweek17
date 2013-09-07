@@ -102,3 +102,9 @@ class Moon:
         '''
         return SURFACE.blit(self.image, (self.current_x - self.radius, self.current_y - self.radius))
 
+    def unrender(self, app):
+        '''(Moon, App) -> Rect
+        Blits over self.rect with app.background on app.window.'''
+        if type(app.background) == tuple:
+            app.window.fill(app.background, self.get_rect())
+        return self.get_rect()
