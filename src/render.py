@@ -21,6 +21,7 @@ from button import Button, exit_app, play, reset
 from label import Label
 from levels import load_level1, load_level2, load_level3
 
+
 def render_title_menu_screen(app, MOUSE_POS=None):
     '''(App, tuple) -> NoneType'''
     BLACK = (0, 0, 0)
