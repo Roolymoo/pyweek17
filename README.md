@@ -25,7 +25,7 @@ Uses [Python v3.3.2](http://www.python.org/download/) and [Pygame v1.9.2](https:
 
 1. Download the [exe](https://github.com/5hassay/pyweek17/blob/master/build/exe.win32-3.3.zip?raw=true) located in the ```build``` directory.
 2. Extra the zip into some folder (there's a lot of required files that come with the exe).
-3. Run main.exe.
+3. Run ```main.exe```.
 
 # How to Play the Game (Rules)
 
